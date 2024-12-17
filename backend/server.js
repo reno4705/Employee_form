@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql2");
+const env = require("dotenv")
+env.config();
 
 const app = express();
 
@@ -9,15 +11,16 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "employee_db"
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "",
+    database: process.env.DB_NAME || "employee_db"
 });
 
 db.connect((error)=> {
     if (error) {
-        console.log("Error connecting to database");
+        console.log("Error connecting to database and server");
+        console.log(error)
     }
     else {
         app.listen(8000, () => {

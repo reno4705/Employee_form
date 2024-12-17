@@ -42,12 +42,11 @@ const Register = () => {
         if (!form.name) lst.name = "Name is required";
         if (!form.id) lst.id = "Employee Id is required";
         if (!form.email) lst.email = "Email is required";
-        if (!form.phone.match(/^\d{10}$/))
-            lst.phone = "Phone number must be 10 digits";
+        if (!form.phone.match(/^\d{10}$/)) lst.phone = "Phone number must be 10 digits";
         if (!form.department) lst.department = "Department is required";
         if (!form.doj) lst.doj = "Date of Joining is required";
         if (!form.role) lst.role = "Role is required";
-
+        
         setErrors(lst);
 
         if (Object.keys(lst).length === 0) {
@@ -149,7 +148,7 @@ const Register = () => {
                 {errors.department && <p>{errors.department}</p>}
 
                 <label>Date of Joining:</label>
-                <input type="date" name="doj" value={form.doj} onChange={handleChange} />
+                <input type="date" name="doj" value={form.doj} onChange={handleChange} max={new Date().toISOString().split("T")[0]}/>
                 {errors.doj && <p>{errors.doj}</p>}
 
                 <label>Role:</label>
